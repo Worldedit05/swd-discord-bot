@@ -1,0 +1,22 @@
+{
+  "name": "discord-swd-bot",
+  "version": "1.0.0",
+  "description": "A Discord command bot for Star Wars Destiny",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "star",
+    "wars",
+    "destiny",
+    "fantasy",
+    "flight"
+  ],
+  "author": "Aaron Lee",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.3.0"
+  }
+}
