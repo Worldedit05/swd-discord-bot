@@ -4,7 +4,8 @@
   "description": "A Discord command bot for Star Wars Destiny",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "keywords": [
     "discord",
@@ -18,5 +19,8 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.1"
   }
 }
