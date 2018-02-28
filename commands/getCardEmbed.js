@@ -18,7 +18,7 @@ module.exports = function getCardEmbed(card) {
   }
 
   var embed = new Discord.RichEmbed()
-    .setTitle(`${card.name} ${card.subtitle}`)
+    .setTitle(`${card.name} - ${card.subtitle}`)
     .setImage(`${card.imagesrc}`)
     .setColor(color);
   return embed;
