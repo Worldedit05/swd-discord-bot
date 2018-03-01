@@ -14,12 +14,19 @@ module.exports = function getCardEmbed(card) {
         color = 'BLUE'
         break;
     default:
-        color = 'DEFAULT'
+        color = 'GREY'
   }
 
   var embed = new Discord.RichEmbed()
-    .setTitle(`${card.name} - ${card.subtitle}`)
+    .setTitle(`${card.label}`)
     .setImage(`${card.imagesrc}`)
-    .setColor(color);
+    .setColor(color)
+    .setDescription(card.text)
+    .addField('Character Points', card.points === null ? 'N/A' : card.points, true)
+    .addField('Cost', card.cost === null ? 'N/A' : card.cost, true)
+    .addField('Affiliation', card.affiliation_code, true)
+    .addField('Set', card.set_code, true)
+    .addField('Rarity', card.rarity_name, true)
+    .addField('Errata\'d', card.has_errata, true);
   return embed;
 }
