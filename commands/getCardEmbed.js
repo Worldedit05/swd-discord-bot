@@ -20,13 +20,15 @@ module.exports = function getCardEmbed(card) {
   var embed = new Discord.RichEmbed()
     .setTitle(`${card.label}`)
     .setImage(`${card.imagesrc}`)
+    .setURL(card.url)
     .setColor(color)
     .setDescription(card.text)
     .addField('Character Points', card.points === null ? 'N/A' : card.points, true)
     .addField('Cost', card.cost === null ? 'N/A' : card.cost, true)
-    .addField('Affiliation', card.affiliation_code, true)
-    .addField('Set', card.set_code, true)
+    .addField('Affiliation', card.affiliation_name, true)
+    .addField('Set', card.set_name, true)
     .addField('Rarity', card.rarity_name, true)
-    .addField('Errata\'d', card.has_errata, true);
+    .addField('Errata\'d', card.has_errata, true)
+    .setFooter(card.flavor === null ? '' : card.flavor);
   return embed;
 }
