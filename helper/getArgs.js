@@ -1,7 +1,7 @@
 function getArgs(command){
   let args;
   if (command.includes(' -')) {
-    var argsArray = command.split(/[\s-]+/);
+    var argsArray = command.split(/[\s-]-/);
     args = {
       "card_name": argsArray[0].trim(),
       "set_name_code": argsArray[argsArray.length - 1]
