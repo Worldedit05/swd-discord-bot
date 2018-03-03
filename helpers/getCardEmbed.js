@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-module.exports = function getCardEmbed(card) {
+function getCardEmbed(card) {
   let color;
   switch(card.faction_code) {
     case 'red':
@@ -32,3 +32,5 @@ module.exports = function getCardEmbed(card) {
     .setFooter(card.flavor === null ? '' : card.flavor);
   return embed;
 }
+
+module.exports = getCardEmbed;
