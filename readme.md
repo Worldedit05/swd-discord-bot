@@ -1,4 +1,4 @@
-# Star Wars Destiny Card Bot for discord
+# Star Wars Destiny Card Bot for Discord
 
 This is a bot that will allow Discord users to link/post Star Wars Destiny cards as rich embed content on the server.
 It helps provide a convenient references for the cards in discussions about the card game.
@@ -25,4 +25,4 @@ The images and data are being retrieved via the <https://swdestinydb.com/api/>
 The JSON data was pulled from <https://github.com/fafranco82/swdestinydb-json-data>
 
 #### Disclaimer
-###### The information presented on this site about Star Wars Destiny, both literal and graphical, is copyrighted by Fantasy Flight Games. This website is not produced, endorsed, supported, or affiliated with Fantasy Flight Games.
+###### The information presented on this site/bot about Star Wars Destiny, both literal and graphical, is copyrighted by Fantasy Flight Games. This bot is not produced, endorsed, supported, or affiliated with Fantasy Flight Games.
