@@ -6,11 +6,11 @@ It helps provide a convenient references for the cards in discussions about the 
 ## Commands
 ### Card Link/Post
 
-   - To post a card just surround the card\'s name in square brackets:
+- To post a card just surround the card\'s name in square brackets:
 
         "[Rey]"
 
-   - You can also provide an optional flag that will narrow the search to a particular set:
+- You can also provide an optional flag that will narrow the search to a particular set:
 
         "[Captain Phasma -AW]"
 
