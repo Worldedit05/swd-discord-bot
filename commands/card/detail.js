@@ -11,8 +11,8 @@ module.exports = class DetailCardCommand extends Command {
       name: 'detail',
       group: 'card',
       memberName: 'detail',
-      description:'Show details about a single Star Wars Destiny card',
-      examples: ['detail Rey AW'],
+      description:'Show details about a single Star Wars Destiny card. Note: name should be surrounded in quotes.',
+      examples: ['detail "Rey" AW'],
       args: [
         {
         key: 'cardName',

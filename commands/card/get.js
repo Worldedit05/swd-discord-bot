@@ -10,8 +10,8 @@ module.exports = class GetCardCommand extends Command {
       name: 'get',
       group: 'card',
       memberName: 'get',
-      description:'Display the card image for a single Star Wars Destiny card',
-      examples: ['get Rey AW'],
+      description:'Display the card image for a single Star Wars Destiny card. Note: name should be surrounded in quotes.',
+      examples: ['get "Rey" AW'],
       args: [
         {
         key: 'cardName',

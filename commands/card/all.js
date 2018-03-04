@@ -9,8 +9,8 @@ module.exports = class AllCardCommand extends Command {
       name: 'all',
       group: 'card',
       memberName: 'all',
-      description:'Show details about a single Star Wars Destiny card',
-      examples: ['all Rey'],
+      description:'Show details about a single Star Wars Destiny card. Note: name should be surrounded in quotes.',
+      examples: ['all "Rey"'],
       args: [
         {
         key: 'cardName',

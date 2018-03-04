@@ -11,8 +11,8 @@ module.exports = class ListCardCommand extends Command {
       name: 'list',
       group: 'card',
       memberName: 'list',
-      description:'Lists card images of all cards for the same character',
-      examples: ['list Rey'],
+      description:'Lists card images of all cards for the same character. Note: name should be surrounded in quotes.',
+      examples: ['list "Rey"'],
       args: [
         {
         key: 'cardName',
