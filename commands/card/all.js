@@ -27,7 +27,7 @@ module.exports = class AllCardCommand extends Command {
     if (message.author.bot) {
       return;
     }
-    console.log(`User '${message.author.username}' sent command '${message.content}'`);
+    console.log(`User '${message.author.username} ${message.author.id}' sent command '${message.content}'`);
 
     var args = {
       "card_name": cardName,
