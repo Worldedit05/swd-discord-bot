@@ -4,5 +4,6 @@ module.exports = {
   EaWset: require('./EaW.json'),
   TPGset: require('./TPG.json'),
   LEGset: require('./LEG.json'),
-  RIVset: require('./RIV.json')
+  RIVset: require('./RIV.json'),
+  WotFset: require('./WotF.json')
 }

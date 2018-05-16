@@ -1,7 +1,7 @@
 const { AWset, EaWset, LEGset, RIVset, SoRset, TPGset } = require('../cardDb');
 
 function getCard(cardArg) {
-  var allDestinyCardsArray = AWset.concat(EaWset, LEGset, RIVset, SoRset, TPGset);
+  var allDestinyCardsArray = AWset.concat(EaWset, LEGset, RIVset, SoRset, TPGset, WotFset);
   let result;
 
   return allDestinyCardsArray.filter(function (card) {
