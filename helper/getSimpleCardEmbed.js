@@ -17,7 +17,7 @@ function getSimpleCardEmbed(card) {
         color = 'GREY'
   }
 
-  var imageUrl = `${card.imagesrc}` || 'http://via.placeholder.com/298x418?text=No+Card+Image';
+  var imageUrl = card.imagesrc || 'http://via.placeholder.com/298x418?text=No+Card+Image';
 
   var embed = new Discord.RichEmbed()
     .setTitle(`${card.label}`)
