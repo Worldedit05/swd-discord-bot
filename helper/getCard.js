@@ -1,7 +1,8 @@
-const { AWset, EaWset, LEGset, RIVset, SoRset, TPGset, WotFset } = require('../cardDb');
+const requireDir = require('require-dir');
+const { AW, EaW, LEG, RIV, SoR, TPG, WotF } = requireDir('../node_modules/swdestinydb-json-data/set');
 
 function getCard(cardArg) {
-  var allDestinyCardsArray = AWset.concat(EaWset, LEGset, RIVset, SoRset, TPGset, WotFset);
+  var allDestinyCardsArray = AW.concat(EaW, LEG, RIV, SoR, TPG, WotF);
   let result;
 
   return allDestinyCardsArray.filter(function (card) {

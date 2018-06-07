@@ -2,8 +2,8 @@
   "name": "discord-swd-bot",
   "version": "1.0.0",
   "engines": {
-    "node": "9.11.1",
-    "yarn": "1.6.0"
+    "node": "10.4.0",
+    "yarn": "1.7.0"
   },
   "description": "A Discord command bot for Star Wars Destiny",
   "main": "app.js",
@@ -26,6 +26,9 @@
     "axios": "^0.18.0",
     "discord.js": "^11.3.0",
     "discord.js-commando": "^0.9.0",
+    "npm-run": "^5.0.1",
+    "require-dir": "^1.0.0",
+    "swdestinydb-json-data": "git+https://git@github.com/fafranco82/swdestinydb-json-data.git",
     "turndown": "^4.0.2"
   },
   "devDependencies": {
