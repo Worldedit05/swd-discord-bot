@@ -44,7 +44,7 @@ var firebase = firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert({
     projectId: process.env.FIREBASE_PROJECT_ID || config.firebase.project_id,
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL || config.firebase.client_email,
-    privateKey: JSON.parse(process.env.PRIVATE_KEY) || config.firebase.private_key
+    privateKey: JSON.parse(process.env.FIREBASE_PRIVATE_KEY) || config.firebase.private_key
   }),
   databaseURL: process.env.FIREBASE_DB_URL || config.firebase.database_url,
 });
