@@ -1,4 +1,6 @@
 {
   "token": "insert-bot-token-here",
-  "prefix": "!"
+  "bot_id": "",
+  "owner_id": "",
+  "channel_id": ""
 }
