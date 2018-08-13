@@ -2,8 +2,7 @@ const axios = require('axios');
 const path = require('path');
 const RssFeedEmitter = require('rss-feed-emitter');
 const feeder = new RssFeedEmitter();
-const firebase = require('firebase/app');
-require('firebase/database');
+var firebaseAdmin = require('firebase-admin');
 
 const { CommandoClient } = require('discord.js-commando');
 
@@ -41,21 +40,21 @@ const token = process.env.BOT_TOKEN || config.token;
 
 client.login(token);
 
-var firebaseApp = firebase.initializeApp({
-    apiKey: process.env.FIREBASE_API_KEY || config.firebase_api_key,
-    authDomain: process.env.FIREBASE_AUTH_DOMAIN || config.firebase_auth_domain,
-    databaseURL: process.env.FIREBASE_DB_URL || config.firebase_db_url,
-    projectId: process.env.FIREBASE_PRODJECT_ID || config.firebase_prodject_id,
-    storageBucket: process.env.FIREBASE_STORAGE_BUCKET || config.firebase_storage_bucket,
-    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || config.firebase_messaging_sender_id
-  });
+var firebase = firebaseAdmin.initializeApp({
+  credential: firebaseAdmin.credential.cert({
+    projectId: process.env.FIREBASE_PROJECT_ID || config.firebase.project_id,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL || config.firebase.client_email,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY || config.firebase.private_key
+  }),
+  databaseURL: process.env.FIREBASE_DB_URL || config.firebase.database_url,
+});
 
 feeder.add({
   url: 'https://www.fantasyflightgames.com/en/rss/',
   refresh: 300
 });
 
-feeder.on('new-item', function(item) {
+feeder.on('new-item', async function(item) {
   const ref = firebase.database().ref('/articles');
   let articleDescription = item.description;
   let starWarsArticleLink = '';
@@ -64,13 +63,13 @@ feeder.on('new-item', function(item) {
 
   if (articleDescription.includes('Star Wars: Destiny')){
     starWarsArticleLink = item.link;
-
-    ref.orderByChild("id").equalTo(guid).on("child_added", function(snapshot) {
-      console.log(snapshot.val());
-      isSavedArticle = true;
+    await ref.once("value", function(snapshot) {
+      if (snapshot.val()[guid]) {
+        console.log(`Article "${item.link}" exists in db`);
+        isSavedArticle = true;
+      }
     });
   }
-
   if (!isSavedArticle && starWarsArticleLink) {
     let currentTime = new Date().toISOString();
     client.channels.get(channel_id).send(`${starWarsArticleLink}`);
