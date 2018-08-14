@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const emojiMapper = require('./symbolToEmojiMapper');
+const emojiReplacer = require('./emojiReplacer');
 const TurndownService = require('turndown')
 const turndownService = new TurndownService()
 
@@ -22,7 +22,7 @@ function getDetailedCardEmbed(card) {
   }
 
   var imageUrl = card.imagesrc || 'http://via.placeholder.com/298x418?text=No+Card+Image';
-  let cardDetails = turndownService.turndown(`${emojiMapper(card.text)}`);
+  let cardDetails = turndownService.turndown(`${emojiReplacer(card.text)}`);
 
   var embed = new Discord.RichEmbed()
     .setTitle(`${card.label}`)
