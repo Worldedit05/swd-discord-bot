@@ -64,7 +64,7 @@ feeder.on('new-item', async function(item) {
   if (articleDescription.includes('Star Wars: Destiny')){
     starWarsArticleLink = item.link;
     await ref.once("value", function(snapshot) {
-      if (snapshot.val()[guid]) {
+      if (snapshot.val() && snapshot.val()[guid]) {
         console.log(`Article "${item.link}" exists in db`);
         isSavedArticle = true;
       }
