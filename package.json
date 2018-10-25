@@ -26,7 +26,7 @@
     "npm-run": "^5.0.1",
     "require-dir": "^1.0.0",
     "rss-feed-emitter": "^2.0.0",
-    "swdestinydb-json-data": "git+https://git@github.com/fafranco82/swdestinydb-json-data.git",
+    "swdestinydb-json-data": "https://github.com/fafranco82/swdestinydb-json-data.git",
     "turndown": "^4.0.2"
   },
   "devDependencies": {
