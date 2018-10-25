@@ -20,8 +20,7 @@ const client = new CommandoClient({
 client.registry
     .registerDefaultTypes()
     .registerGroups([
-        ['card', 'Commands to bring up Star Wars Destiny cards'],
-        ['admin', 'Admin commands']
+        ['card', 'Commands to bring up Star Wars Destiny cards']
     ])
     .registerDefaultGroups()
     .registerDefaultCommands()
