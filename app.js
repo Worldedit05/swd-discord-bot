@@ -2,9 +2,8 @@ const axios = require('axios');
 const path = require('path');
 const RssFeedEmitter = require('rss-feed-emitter');
 const feeder = new RssFeedEmitter();
-var firebaseAdmin = require('firebase-admin');
-
 const { CommandoClient } = require('discord.js-commando');
+const firebase = require("./dbRepository/connection");
 
 const config = process.env.PRODUCTION ? null : require("./config.json");
 const botId = process.env.BOT_ID || config.bot_id;
@@ -27,7 +26,7 @@ client.registry
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.on("ready", () => {
-  console.log("I am ready!");
+  console.log("Bot is now online. I am ready!");
 });
 
 //TODO:
@@ -38,15 +37,6 @@ client.on("ready", () => {
 const token = process.env.BOT_TOKEN || config.token;
 
 client.login(token);
-
-var firebase = firebaseAdmin.initializeApp({
-  credential: firebaseAdmin.credential.cert({
-    projectId: process.env.FIREBASE_PROJECT_ID || config.firebase.project_id,
-    clientEmail: process.env.FIREBASE_CLIENT_EMAIL || config.firebase.client_email,
-    privateKey: process.env.PRODUCTION ? JSON.parse(process.env.FIREBASE_PRIVATE_KEY) : config.firebase.private_key
-  }),
-  databaseURL: process.env.FIREBASE_DB_URL || config.firebase.database_url,
-});
 
 feeder.add({
   url: 'https://www.fantasyflightgames.com/en/rss/',
