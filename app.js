@@ -3,7 +3,7 @@ const path = require('path');
 const RssFeedEmitter = require('rss-feed-emitter');
 const feeder = new RssFeedEmitter();
 const { CommandoClient } = require('discord.js-commando');
-const firebase = require("./dbRepository/connection");
+const firebase = require("./src/dbRepository/connection");
 
 const config = process.env.PRODUCTION ? null : require("./config.json");
 const botId = process.env.BOT_ID || config.bot_id;
@@ -23,7 +23,7 @@ client.registry
     ])
     .registerDefaultGroups()
     .registerDefaultCommands()
-    .registerCommandsIn(path.join(__dirname, 'commands'));
+    .registerCommandsIn(path.join(__dirname, 'src/commands'));
 
 client.on("ready", () => {
   console.log("Bot is now online. I am ready!");

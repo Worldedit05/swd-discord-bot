@@ -1,5 +1,5 @@
 const firebaseAdmin = require('firebase-admin');
-const config = process.env.PRODUCTION ? null : require("../config.json");
+const config = process.env.PRODUCTION ? null : require("../../config.json");
 
 module.exports = firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert({
