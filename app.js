@@ -1,9 +1,12 @@
 const path = require('path');
 const RssFeedEmitter = require('rss-feed-emitter');
 const feeder = new RssFeedEmitter();
-const { CommandoClient } = require('discord.js-commando');
 const databaseConnection = require('./src/database');
+
+const { CommandoClient } = require('discord.js-commando');
 const { Article } = require('./src/database/model');
+const { read } = require('./src/database/action');
+
 const logger = require('pino')({
   prettyPrint: {
     colorize: true
@@ -88,15 +91,3 @@ feeder.on('new-item', async function(item) {
     });
   }
 });
-
-function read(query) {
-  return new Promise((resolve, reject) => {
-    Article.find(query, (err, docs) => {
-      if (err) {
-        reject(err);
-      }
-
-      resolve(docs);
-    });
-  });
-}
