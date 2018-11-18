@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const logger = require('pino')({ prettyPrint: { colorize: true } });
 
 const connection = () => {
-  mongoose.connect('mongodb://localhost/test', { poolSize: 3, useNewUrlParser: true });
+  mongoose.connect(process.env.MONGO_DB_URL, { poolSize: 3, useNewUrlParser: true });
 
   const db = mongoose.connection;
 
