@@ -20,7 +20,7 @@ function getDetailedCardEmbed(card) {
   }
 
   var imageUrl = card.imagesrc || 'http://via.placeholder.com/298x418?text=No+Card+Image';
-  let cardDetails = turndownService.turndown(`${emojiReplacer(card.text)}`);
+  const cardDetails = turndownService.turndown(`${emojiReplacer(card.text)}`);
 
   var embed = new Discord.RichEmbed()
     .setTitle(`${card.label}`)
