@@ -24,6 +24,8 @@
     "discord.js-commando": "0.10.0",
     "firebase-admin": "6.1.0",
     "mongoose": "5.3.12",
+    "pino": "5.8.1",
+    "pino-pretty": "2.2.3",
     "require-dir": "1.1.0",
     "rss-feed-emitter": "2.0.0",
     "swdestinydb-json-data": "https://github.com/fafranco82/swdestinydb-json-data.git",

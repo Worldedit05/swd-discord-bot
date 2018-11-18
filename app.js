@@ -4,6 +4,9 @@ const RssFeedEmitter = require('rss-feed-emitter');
 const feeder = new RssFeedEmitter();
 const { CommandoClient } = require('discord.js-commando');
 const firebase = require("./src/dbRepository/connection");
+const databaseConnection = require('./src/database');
+const { Article } = require('./src/database/model');
+const logger = require('pino')({ prettyPrint: {colorize: true}});
 
 const config = process.env.PRODUCTION ? null : require("./config.json");
 const botId = process.env.BOT_ID || config.bot_id;
@@ -26,7 +29,7 @@ client.registry
     .registerCommandsIn(path.join(__dirname, 'src/commands'));
 
 client.on("ready", () => {
-  console.log("Bot is now online. I am ready!");
+  logger.info("Bot is now online. I am ready!");
 });
 
 //TODO:
@@ -43,31 +46,52 @@ feeder.add({
   refresh: 300
 });
 
+databaseConnection();
+
 feeder.on('new-item', async function(item) {
-  const ref = firebase.database().ref('/articles');
   let articleDescription = item.description;
   let starWarsArticleLink = '';
   let isSavedArticle = false;
-  let guid = Buffer.from(item.guid).toString('base64');
 
   if (articleDescription.includes('Star Wars: Destiny')){
     starWarsArticleLink = item.link;
-    await ref.once("value", function(snapshot) {
-      if (snapshot.val() && snapshot.val()[guid]) {
-        console.log(`Article "${item.link}" exists in db`);
-        isSavedArticle = true;
-      }
-    });
+
+    try {
+      const results = await read({guid: `${item.guid}`});
+      isSavedArticle = results.length > 0;
+    } catch(err) {
+      logger.info(err);
+    }
   }
+
   if (!isSavedArticle && starWarsArticleLink) {
     let currentTime = new Date().toISOString();
     client.channels.get(channel_id).send(`${starWarsArticleLink}`);
 
-    firebase.database().ref(`/articles/${guid}`).set({
-      title: `${item.title}`,
-      link: `${item.link}`,
-      createDate: `${currentTime}`,
-      updateDate: `${currentTime}`
+    const article = new Article({
+      title: item.title,
+      link: item.link,
+      guid: item.guid,
+      createDate: currentTime,
+      modifyDate: currentTime
+    });
+    article.save((err) => {
+      if (err) {
+        logger.error(err);
+      }
     });
   }
-})
+});
+
+function read (query){
+  return new Promise(resolve => {
+    Article.find(query, (err, docs) => {
+      if (err) {
+        reject(err);
+      }
+
+      resolve(docs);
+    });
+  })
+
+}
