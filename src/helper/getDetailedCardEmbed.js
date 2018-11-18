@@ -1,24 +1,22 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
-
 const emojiReplacer = require('./emojiReplacer');
-const TurndownService = require('turndown')
-const turndownService = new TurndownService()
+const TurndownService = require('turndown');
+const turndownService = new TurndownService();
 
 function getDetailedCardEmbed(card) {
   let color;
   switch(card.faction_code) {
-    case 'red':
-        color = 'RED'
-        break;
-    case 'yellow':
-        color = 'GOLD'
-        break;
-    case 'blue':
-        color = 'BLUE'
-        break;
-    default:
-        color = 'GREY'
+  case 'red':
+    color = 'RED';
+    break;
+  case 'yellow':
+    color = 'GOLD';
+    break;
+  case 'blue':
+    color = 'BLUE';
+    break;
+  default:
+    color = 'GREY';
   }
 
   var imageUrl = card.imagesrc || 'http://via.placeholder.com/298x418?text=No+Card+Image';

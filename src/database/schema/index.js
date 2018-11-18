@@ -1,5 +1,5 @@
 const schemaList = {
-  articleSchema: require("./articleSchema"),
-}
+  articleSchema: require('./articleSchema'),
+};
 
 module.exports = schemaList;

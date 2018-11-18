@@ -1,5 +1,5 @@
 const modelList = {
-  Article: require("./articleModel"),
-}
+  Article: require('./articleModel'),
+};
 
 module.exports = modelList;

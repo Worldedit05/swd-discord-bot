@@ -1,7 +1,11 @@
 const axios = require('axios');
-
 const { Command } = require('discord.js-commando');
 const { getCard, getDetailedCardEmbed } = require('../../helper');
+const logger = require('pino')({
+  prettyPrint: {
+    colorize: true
+  }
+});
 
 module.exports = class AllCardCommand extends Command {
   constructor(client) {
@@ -13,40 +17,38 @@ module.exports = class AllCardCommand extends Command {
       examples: ['all "Rey"'],
       args: [
         {
-        key: 'cardName',
-        prompt: 'What is the card name?',
-        type: 'string'
+          key: 'cardName',
+          prompt: 'What is the card name?',
+          type: 'string'
         }
       ]
     });
   }
 
   async run(message, { cardName }) {
-    const messageContent = message.content.toLowerCase();
-
     if (message.author.bot) {
       return;
     }
-    console.log(`User '${message.author.username} ${message.author.id}' sent command '${message.content}'`);
+    logger.info(`User '${message.author.username} ${message.author.id}' sent command '${message.content}'`);
 
     var args = {
-      "card_name": cardName,
-      "set_name_code": null
+      'card_name': cardName,
+      'set_name_code': null
     };
 
     var foundCardsArray = getCard(args);
 
     if (foundCardsArray.length === 0) {
-      console.log(`No card found for ${JSON.stringify(args)}`);
-      return message.author.send("Sorry could not find a card with that name. :cry: Please check the spelling and try again!")
+      logger.info(`No card found for ${JSON.stringify(args)}`);
+      return message.author.send('Sorry could not find a card with that name. :cry: Please check the spelling and try again!');
     }
     for (var i = 0; i < foundCardsArray.length; i++) {
       var cardCode = foundCardsArray[i].code;
       var completeCardObject = await axios.get(`https://swdestinydb.com/api/public/card/${cardCode}`);
-      console.log(`SWDestinydb returned ${JSON.stringify(completeCardObject.data)}`);
+      logger.info(`SWDestinydb returned ${JSON.stringify(completeCardObject.data)}`);
       var embed = getDetailedCardEmbed(completeCardObject.data);
 
-      message.channel.send({embed});
+      message.channel.send({ embed });
     }
   }
-}
+};

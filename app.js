@@ -1,17 +1,21 @@
-const axios = require('axios');
 const path = require('path');
 const RssFeedEmitter = require('rss-feed-emitter');
 const feeder = new RssFeedEmitter();
 const { CommandoClient } = require('discord.js-commando');
-const firebase = require("./src/dbRepository/connection");
 const databaseConnection = require('./src/database');
 const { Article } = require('./src/database/model');
-const logger = require('pino')({ prettyPrint: {colorize: true}});
+const logger = require('pino')({
+  prettyPrint: {
+    colorize: true
+  }
+});
 
-const config = process.env.PRODUCTION ? null : require("./config.json");
-const botId = process.env.BOT_ID || config.bot_id;
-const ownerId = process.env.OWNER_ID || config.owner_id;
-const channel_id = process.env.CHANNEL_ID || config.channel_id;
+if (process.env.PRODUCTION !== 'production') {
+  require('dotenv').load();
+}
+
+const ownerId = process.env.OWNER_ID;
+const channel_id = process.env.CHANNEL_ID;
 
 const client = new CommandoClient({
   commandPrefix: '!',
@@ -20,16 +24,16 @@ const client = new CommandoClient({
 });
 
 client.registry
-    .registerDefaultTypes()
-    .registerGroups([
-        ['card', 'Commands to bring up Star Wars Destiny cards']
-    ])
-    .registerDefaultGroups()
-    .registerDefaultCommands()
-    .registerCommandsIn(path.join(__dirname, 'src/commands'));
+  .registerDefaultTypes()
+  .registerGroups([
+    ['card', 'Commands to bring up Star Wars Destiny cards']
+  ])
+  .registerDefaultGroups()
+  .registerDefaultCommands()
+  .registerCommandsIn(path.join(__dirname, 'src/commands'));
 
-client.on("ready", () => {
-  logger.info("Bot is now online. I am ready!");
+client.on('ready', () => {
+  logger.info('Bot is now online. I am ready!');
 });
 
 //TODO:
@@ -37,7 +41,7 @@ client.on("ready", () => {
 // - Make a "good bot" reply and counter
 // - Card count stats
 
-const token = process.env.BOT_TOKEN || config.token;
+const token = process.env.BOT_TOKEN;
 
 client.login(token);
 
@@ -53,13 +57,15 @@ feeder.on('new-item', async function(item) {
   let starWarsArticleLink = '';
   let isSavedArticle = false;
 
-  if (articleDescription.includes('Star Wars: Destiny')){
+  if (articleDescription.includes('Star Wars: Destiny')) {
     starWarsArticleLink = item.link;
 
     try {
-      const results = await read({guid: `${item.guid}`});
+      const results = await read({
+        guid: `${item.guid}`
+      });
       isSavedArticle = results.length > 0;
-    } catch(err) {
+    } catch (err) {
       logger.info(err);
     }
   }
@@ -83,8 +89,8 @@ feeder.on('new-item', async function(item) {
   }
 });
 
-function read (query){
-  return new Promise(resolve => {
+function read(query) {
+  return new Promise((resolve, reject) => {
     Article.find(query, (err, docs) => {
       if (err) {
         reject(err);
@@ -92,6 +98,5 @@ function read (query){
 
       resolve(docs);
     });
-  })
-
+  });
 }
