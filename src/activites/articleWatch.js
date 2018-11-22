@@ -8,15 +8,13 @@ if (process.env.PRODUCTION !== 'production') {
   require('dotenv').load();
 }
 
-const channel_id = process.env.CHANNEL_ID;
-
 const logger = require('pino')({
   prettyPrint: {
     colorize: true
   }
 });
 
-module.exports = () => {
+module.exports = (channel) => {
   feeder.add({
     url: 'https://www.fantasyflightgames.com/en/rss/',
     refresh: 300
@@ -43,9 +41,8 @@ module.exports = () => {
 
     if (!isSavedArticle && starWarsArticleLink) {
       const currentTime = new Date().toISOString();
-      const client = await require('../client');
 
-      client.channels.get(channel_id).send(`${starWarsArticleLink}`);
+      channel.send(`${starWarsArticleLink}`);
 
       const article = new Article({
         title: item.title,
