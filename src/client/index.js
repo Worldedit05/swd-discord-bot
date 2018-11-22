@@ -4,6 +4,7 @@ const articleWatch = require('../activites/articleWatch');
 const ownerId = process.env.OWNER_ID;
 const channel_id = process.env.CHANNEL_ID;
 const token = process.env.BOT_TOKEN;
+const commandPrefix = '!';
 
 const logger = require('pino')({
   prettyPrint: {
@@ -12,7 +13,6 @@ const logger = require('pino')({
 });
 
 const client = new Discord.Client({
-  commandPrefix: '!',
   owner: ownerId,
   disableEveryone: true
 });
@@ -31,6 +31,18 @@ client.on('ready', () => {
   const channel = client.channels.get(channel_id);
 
   articleWatch(channel);
+});
+
+client.on('message', message => {
+  if (!message.content.startsWith(commandPrefix) || message.author.bot) {
+    return;
+  }
+
+  const args = message.content.slice(commandPrefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+  console.dir(args);
+  message.channel.send('Command ' + command);
+  message.channel.send(args);
 });
 
 //TODO:
