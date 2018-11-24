@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const articleWatch = require('../activites/articleWatch');
+const { getCard } = require('../helper');
 
 const ownerId = process.env.OWNER_ID;
 const channel_id = process.env.CHANNEL_ID;
@@ -40,9 +41,16 @@ client.on('message', message => {
 
   const args = message.content.slice(commandPrefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
-  console.dir(args);
+
+  var cardQuery = {
+    'card_name': args.join(' '),
+    'set_name_code': null
+  };
+
+  const result = getCard(cardQuery);
+  console.dir(result);
   message.channel.send('Command ' + command);
-  message.channel.send(args);
+  message.channel.send(result);
 });
 
 //TODO:
