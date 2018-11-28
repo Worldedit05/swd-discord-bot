@@ -48,9 +48,9 @@ client.on('message', async message => {
     'set_name_code': null
   };
 
-  const result = getCard(cardQuery);
-  for (let i = 0; i < result.length; i++) {
-    var completeCardObject = await axios.get(`https://swdestinydb.com/api/public/card/${result[i].code}`);
+  const cards = getCard(cardQuery);
+  for (let i = 0; i < cards.length; i++) {
+    var completeCardObject = await axios.get(`https://swdestinydb.com/api/public/card/${cards[i].code}`);
     const embed = getDetailedCardEmbed(completeCardObject.data);
     message.channel.send(embed);
   }
