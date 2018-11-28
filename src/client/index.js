@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
+const axios = require('axios');
 const articleWatch = require('../activites/articleWatch');
-const { getCard } = require('../helper');
+const { getCard, getSimpleCardEmbed, getDetailedCardEmbed } = require('../helper');
 
 const ownerId = process.env.OWNER_ID;
 const channel_id = process.env.CHANNEL_ID;
@@ -34,7 +35,7 @@ client.on('ready', () => {
   articleWatch(channel);
 });
 
-client.on('message', message => {
+client.on('message', async message => {
   if (!message.content.startsWith(commandPrefix) || message.author.bot) {
     return;
   }
@@ -48,9 +49,11 @@ client.on('message', message => {
   };
 
   const result = getCard(cardQuery);
-  console.dir(result);
-  message.channel.send('Command ' + command);
-  message.channel.send(result);
+  for (let i = 0; i < result.length; i++) {
+    var completeCardObject = await axios.get(`https://swdestinydb.com/api/public/card/${result[i].code}`);
+    const embed = getDetailedCardEmbed(completeCardObject.data);
+    message.channel.send(embed);
+  }
 });
 
 //TODO:
