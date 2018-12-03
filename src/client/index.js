@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const axios = require('axios');
 const articleWatch = require('../activites/articleWatch');
-const { getCard, getSimpleCardEmbed, getDetailedCardEmbed } = require('../helper');
+const { getCard, getSimpleCardEmbed } = require('../helper');
 
 const ownerId = process.env.OWNER_ID;
 const channel_id = process.env.CHANNEL_ID;
@@ -43,15 +43,29 @@ client.on('message', async message => {
   const args = message.content.slice(commandPrefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
 
+  if (command !== 'get') {
+    return message.channel.send(`Unknown command: ${command}`);
+  }
+
   var cardQuery = {
     'card_name': args.join(' '),
     'set_name_code': null
   };
 
   const cards = getCard(cardQuery);
+
+  if (cards.length === 0) {
+    logger.info(`No card found for ${JSON.stringify(args)}`);
+    return message.author.send('Sorry could not find a card with that name. :cry: Please check the spelling and try again!');
+  }
+
+  if (cards.length > 1) {
+    return message.channel.send('Multiple cards found');
+  }
+
   for (let i = 0; i < cards.length; i++) {
     var completeCardObject = await axios.get(`https://swdestinydb.com/api/public/card/${cards[i].code}`);
-    const embed = getDetailedCardEmbed(completeCardObject.data);
+    const embed = getSimpleCardEmbed(completeCardObject.data);
     message.channel.send(embed);
   }
 });
