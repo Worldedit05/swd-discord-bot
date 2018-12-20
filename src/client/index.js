@@ -58,10 +58,10 @@ client.on('message', async message => {
     logger.info(`No card found for ${JSON.stringify(args)}`);
     return message.author.send('Sorry could not find a card with that name. :cry: Please check the spelling and try again!');
   }
-
-  if (cards.length > 1) {
-    return message.channel.send('Multiple cards found');
-  }
+  // TODO
+  // if (cards.length > 1) {
+  //   return message.channel.send('Multiple cards found');
+  // }
 
   for (let i = 0; i < cards.length; i++) {
     var completeCardObject = await axios.get(`https://swdestinydb.com/api/public/card/${cards[i].code}`);
