@@ -25,7 +25,7 @@ module.exports = (channel) => {
     let starWarsArticleLink = '';
     let isSavedArticle = false;
 
-    if (articleDescription.includes('Star Wars') && articleDescription.includes('Destiny')) {
+    if (articleDescription.includes('Star Wars') && articleDescription.includes('Destiny') || articleDescription.includes('Star Wars: Destiny')) {
       starWarsArticleLink = item.link;
 
       try {
