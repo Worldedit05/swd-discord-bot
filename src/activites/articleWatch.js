@@ -16,7 +16,7 @@ const logger = require('pino')({
 
 module.exports = (channel) => {
   feeder.add({
-    url: 'https://www.fantasyflightgames.com/en/rss/',
+    url: 'https://www.fantasyflightgames.com/en/rss/?',
     refresh: 300
   });
 
