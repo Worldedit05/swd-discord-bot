@@ -35,6 +35,11 @@ client.on('ready', () => {
   articleWatch(channel);
 });
 
+client.on('error', (error) => {
+  logger.error(error);
+  process.exit(1);
+});
+
 client.on('message', async message => {
   if (!message.content.startsWith(commandPrefix) || message.author.bot) {
     return;
