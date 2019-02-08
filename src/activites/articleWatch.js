@@ -30,20 +30,18 @@ module.exports = (channel) => {
     let starWarsArticleLink = '';
     let isSavedArticle = false;
 
-    logger.info(`Item in the RSS feed. Checking article: ${item.link}`);
-
     if (articleDescription.includes('Star Wars') && articleDescription.includes('Destiny')) {
       starWarsArticleLink = item.link;
-      logger.info(`New Star Wars article found: ${item.link}`);
+      logger.info(`New Star Wars article found in RSS feed: ${item.link}`);
       try {
         const results = await read({
           guid: `${item.guid}`
         });
 
         isSavedArticle = results.length > 0;
-        logger.info(`Article ${item.title} ${isSavedArticle ? 'was' : 'was not'} saved in the database`);
+        logger.info(`Article ${item.title} ${isSavedArticle ? 'was' : 'was not'} found in the database`);
       } catch (err) {
-        logger.info(err);
+        logger.error(`Error when reading the database: ${err}`);
       }
     }
 
@@ -61,7 +59,7 @@ module.exports = (channel) => {
       });
       article.save((err) => {
         if (err) {
-          logger.error(err);
+          logger.error(`Error occurred when saving to the database: ${err}`);
         }
       });
     }
