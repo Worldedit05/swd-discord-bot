@@ -2,7 +2,7 @@ const RssFeedEmitter = require('rss-feed-emitter');
 const feeder = new RssFeedEmitter();
 
 const { Article } = require('../database/model');
-const { read } = require('../database/action');
+const { readArticles } = require('../database/action');
 
 if (process.env.PRODUCTION !== 'production') {
   require('dotenv').load();
@@ -34,7 +34,7 @@ module.exports = (channel) => {
       starWarsArticleLink = item.link;
       logger.info(`New Star Wars article found in RSS feed: ${item.link}`);
       try {
-        const results = await read({
+        const results = await readArticles({
           guid: `${item.guid}`
         });
 

@@ -1,3 +1,3 @@
 module.exports = {
-  read: require('./read'),
+  readArticles: require('./readArticles'),
 };
