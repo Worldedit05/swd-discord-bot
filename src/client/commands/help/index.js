@@ -6,7 +6,7 @@ const helpMessage = `\`\`\`yaml
 
 -!get
 
-    Info: Returns card(s) that match the exact name or title provided. A set flag to narrow the results.
+    Info: Returns card(s) that match the exact name or title provided. A set flag will narrow the results.
 
     Example:
       !get Luke Skywalker --set=wotf

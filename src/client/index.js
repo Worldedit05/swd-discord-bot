@@ -43,7 +43,7 @@ client.on('message', async message => {
     getCardCommand(message, args);
     break;
   default:
-    return message.channel.send(`Unknown command: ${command}`);
+    return message.channel.send(`I am sorry ${message.author}. I am afraid I can't do that. https://media.giphy.com/media/CdY6WueirK8Te/giphy.gif`);
   }
 });
 
