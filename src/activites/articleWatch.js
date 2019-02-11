@@ -3,16 +3,7 @@ const feeder = new RssFeedEmitter();
 
 const { Article } = require('../database/model');
 const { readArticles } = require('../database/action');
-
-if (process.env.PRODUCTION !== 'production') {
-  require('dotenv').load();
-}
-
-const logger = require('pino')({
-  prettyPrint: {
-    colorize: true
-  }
-});
+const { logger } = require('../helper/logger');
 
 module.exports = (channel) => {
   feeder.add({

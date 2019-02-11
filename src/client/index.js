@@ -7,11 +7,7 @@ const channel_id = process.env.CHANNEL_ID;
 const token = process.env.BOT_TOKEN;
 const commandPrefix = '!';
 
-const logger = require('pino')({
-  prettyPrint: {
-    colorize: true
-  }
-});
+const { logger } = require('../helper/logger');
 
 const client = new Discord.Client({
   owner: ownerId,

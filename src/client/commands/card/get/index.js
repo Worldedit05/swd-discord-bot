@@ -5,12 +5,7 @@ const getSetName = require('./getSetName');
 const removeSetNameFromArgs = require('./removeSetNameFromArgs');
 
 const cardContants = require('../../../../helper/constants/cards');
-
-const logger = require('pino')({
-  prettyPrint: {
-    colorize: true
-  }
-});
+const { logger } = require('../../../../helper/logger');
 
 const getCardCommand = async (message, args) => {
   const setName = getSetName(args);
@@ -20,9 +15,9 @@ const getCardCommand = async (message, args) => {
     'card_name': args.join(' '),
     'set_name_code': setName
   };
-
+  logger.debug(cardQuery);
   const cards = getCard(cardQuery);
-
+  logger.debug(cards);
   if (cards.length === 0) {
     logger.info(`No card found for ${JSON.stringify(args)}`);
     return message.author.send(cardContants.noCardFoundMessage);

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const logger = require('pino')({ prettyPrint: { colorize: true } });
+const { logger } = require('../helper/logger');
 
 const connection = () => {
   mongoose.connect(process.env.MONGO_DB_URL, { poolSize: 3, useNewUrlParser: true });
