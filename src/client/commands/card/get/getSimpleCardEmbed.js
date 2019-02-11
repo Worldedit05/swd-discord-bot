@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const cardContants = require('../../../../helper/constants/cards');
 
 function getSimpleCardEmbed(card) {
   let color;
@@ -16,7 +17,7 @@ function getSimpleCardEmbed(card) {
     color = 'GREY';
   }
 
-  var imageUrl = card.imagesrc || 'http://via.placeholder.com/298x418?text=No+Card+Image';
+  var imageUrl = card.imagesrc || cardContants.cardPlaceholderUrl;
 
   var embed = new Discord.RichEmbed()
     .setTitle(`${card.label}`)
