@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const articleWatch = require('../activites/articleWatch');
 const helpCommand = require('./commands/help');
 const getCardCommand = require('./commands/card/get');
+const getInfoCommand = require('./commands/info');
 
 const ownerId = process.env.OWNER_ID;
 const channel_id = process.env.CHANNEL_ID;
@@ -38,6 +39,9 @@ client.on('message', async message => {
   switch (command) {
   case 'help':
     helpCommand(message);
+    break;
+  case 'info':
+    getInfoCommand(message);
     break;
   case 'get':
     getCardCommand(message, args);

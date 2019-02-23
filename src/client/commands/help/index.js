@@ -4,6 +4,10 @@ const helpMessage = `\`\`\`yaml
 
     Info: The help command.
 
+-!info
+
+    Info: Returns development info about cardbot.
+
 -!get
 
     Info: Returns card(s) that match the exact name or title provided. A set flag will narrow the results.
