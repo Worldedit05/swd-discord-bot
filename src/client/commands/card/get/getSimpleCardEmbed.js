@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const cardContants = require('../../../../helper/constants/cards');
 const formats = require('../../../../../node_modules/swdestinydb-json-data/formats.json');
 
-const addErrataInfo = (card, embed) => {
+const addBalanceInfo = (card, embed) => {
 
   if(card.points){
     embed.setDescription('Balance of the Force', 'info');
@@ -10,13 +10,6 @@ const addErrataInfo = (card, embed) => {
       const isCardInFormat = format.data.sets.includes(card.set_code);
       embed.addField(format.name, isCardInFormat ? format.data.balance[card.code] || card.points : 'N/A', true);
     });
-  }
-
-  //TODO: extract this out into it's own function
-  if (card.subtypes) {
-    const listOfSubtypes = [];
-    card.subtypes.forEach(type => listOfSubtypes.push(type.name));
-    embed.addField('Subtypes', listOfSubtypes.join(' - '));
   }
 };
 
@@ -31,6 +24,14 @@ const isBalanced = (code) => {
   }
 
   return false;
+};
+
+const addSubTypeInfo = (card, embed) => {
+  if (card.subtypes) {
+    const listOfSubtypes = [];
+    card.subtypes.forEach(type => listOfSubtypes.push(type.name));
+    embed.addField('Subtypes', listOfSubtypes.join(' - '));
+  }
 };
 
 function getSimpleCardEmbed(card) {
@@ -57,9 +58,14 @@ function getSimpleCardEmbed(card) {
     .setURL(card.url)
     .setColor(color);
 
-  if(card.has_errata || isBalanced(card.code)) {
-    addErrataInfo(card, embed);
+  if(isBalanced(card.code)) {
+    addBalanceInfo(card, embed);
   }
+
+  if(card.has_errata) {
+    addSubTypeInfo(card, embed);
+  }
+
   return embed;
 }
 
