@@ -12,7 +12,7 @@ module.exports = (channel) => {
   });
 
   feeder.on('new-item', async function(item) {
-    logger.debug(`Incoming item in RSS feed: ${item.title}`);
+    logger.info(`Incoming item in RSS feed: ${item.title}`);
     const articleDescription = item.description;
     let starWarsArticleLink = '';
     let isSavedArticle = false;
