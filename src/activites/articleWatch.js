@@ -8,24 +8,25 @@ const { logger } = require('../helper/logger');
 module.exports = (channel) => {
   feeder.add({
     url: 'https://www.fantasyflightgames.com/en/rss/',
-    refresh: 300
+    refresh: 180
   });
 
   feeder.on('new-item', async function(item) {
+    logger.debug(`Incoming item in RSS feed: ${item.title}`);
     const articleDescription = item.description;
     let starWarsArticleLink = '';
     let isSavedArticle = false;
 
     if (articleDescription.includes('Star Wars') && articleDescription.includes('Destiny')) {
       starWarsArticleLink = item.link;
-      logger.info(`New Star Wars article found in RSS feed: ${item.link}`);
+      logger.info(`New Star Wars article found in RSS feed: ${item.title} - ${item.link}`);
       try {
         const results = await readArticles({
           guid: `${item.guid}`
         });
 
         isSavedArticle = results.length > 0;
-        logger.info(`Article ${item.title} ${isSavedArticle ? 'was' : 'was not'} found in the database`);
+        logger.info(`Article "${item.title}" ${isSavedArticle ? 'was' : 'was not'} found in the database`);
       } catch (err) {
         logger.error(`Error when reading the database: ${err}`);
       }
