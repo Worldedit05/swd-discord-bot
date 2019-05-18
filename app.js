@@ -8,11 +8,14 @@ const databaseConnection = require('./src/database');
 // Get Discord client
 require('./src/client');
 
-databaseConnection();
+const successfulDbConnection = databaseConnection();
 
-process.on('SIGINT', () => {
-  databaseConnection.connection.close(() => {
+function gracefulShutdown(){
+  successfulDbConnection.close(false, () => {
     logger.info('Mongoose default connection disconnected through app termination');
-    process.exit(0);
   });
-});
+}
+
+process.on('exit', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
+process.on('uncaughtException', gracefulShutdown);

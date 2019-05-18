@@ -5,6 +5,18 @@ const { Article } = require('../database/model');
 const { readArticles } = require('../database/action');
 const { logger } = require('../helper/logger');
 
+const searchTerms = ['star wars: destiny', 'star wars destiny'];
+
+const isStarWarsDestinyArticle = (description) => {
+  const lowerCaseDescription = description.toLowerCase();
+
+  for(let i = 0; i < searchTerms.length; i++) {
+    if(lowerCaseDescription.includes(searchTerms[i])) {
+      return true;
+    }
+  }
+};
+
 module.exports = (channel) => {
   feeder.add({
     url: 'https://www.fantasyflightgames.com/en/rss/',
@@ -17,7 +29,7 @@ module.exports = (channel) => {
     let starWarsArticleLink = '';
     let isSavedArticle = false;
 
-    if (articleDescription.includes('Star Wars') && articleDescription.includes('Destiny')) {
+    if (isStarWarsDestinyArticle(articleDescription)) {
       starWarsArticleLink = item.link;
       logger.info(`New Star Wars article found in RSS feed: ${item.title} - ${item.link}`);
       try {
