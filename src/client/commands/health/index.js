@@ -6,9 +6,9 @@ const healthCheck = (message) => {
   }
   const healthText = `\`\`\`yaml
 AppID: ${process.env.HEROKU_APP_ID}
-App Name: ${process.env.HEROKU_APP_NAME}
-Release Created Date: ${process.env.HEROKU_RELEASE_CREATED_AT}
-Release Version: ${process.env.HEROKU_RELEASE_VERSION}
+App_Name: ${process.env.HEROKU_APP_NAME}
+Release_Created_Date: "${process.env.HEROKU_RELEASE_CREATED_AT}"
+Release_Version: ${process.env.HEROKU_RELEASE_VERSION}
 Commit: ${process.env.HEROKU_SLUG_COMMIT}
 \`\`\``;
 
