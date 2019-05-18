@@ -3,6 +3,7 @@ const articleWatch = require('../activites/articleWatch');
 const helpCommand = require('./commands/help');
 const getCardCommand = require('./commands/card/get');
 const getInfoCommand = require('./commands/info');
+const getHealthCheckCommand = require('./commands/health');
 
 const ownerId = process.env.OWNER_ID;
 const channel_id = process.env.CHANNEL_ID;
@@ -45,6 +46,9 @@ client.on('message', async message => {
     break;
   case 'get':
     getCardCommand(message, args);
+    break;
+  case 'health':
+    getHealthCheckCommand(message);
     break;
   default:
     return message.channel.send(`I am sorry ${message.author}. I am afraid I can't do that. https://media.giphy.com/media/CdY6WueirK8Te/giphy.gif`);

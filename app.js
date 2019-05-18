@@ -14,6 +14,8 @@ function gracefulShutdown(){
   successfulDbConnection.close(false, () => {
     logger.info('Mongoose default connection disconnected through app termination');
   });
+
+  process.exit(1);
 }
 
 process.on('exit', gracefulShutdown);
