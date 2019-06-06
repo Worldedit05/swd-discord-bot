@@ -16,7 +16,9 @@ const helpMessage = `\`\`\`yaml
       !get Luke Skywalker --set=wotf
 
     Notes:
-      valid flags - ${common.released_sets.join(' | ').toLowerCase()}
+      valid flags - ${common.published_sets.map((set => set.code.toLowerCase())).join(' | ')}
+
+${common.published_sets.map(set => `\t\t\t${set.code} = ${set.name}\n`).join('')}
 \`\`\``;
 
 const helpCommand = (message) => {
