@@ -7,7 +7,7 @@ const { logger } = require('../helper/logger');
 
 const searchTerms = ['star wars: destiny', 'star wars destiny'];
 
-const isStarWarsDestinyArticle = (description) => {
+const isRelevantArticle = (description) => {
   const lowerCaseDescription = description.toLowerCase();
 
   for(let i = 0; i < searchTerms.length; i++) {
@@ -15,6 +15,8 @@ const isStarWarsDestinyArticle = (description) => {
       return true;
     }
   }
+
+  return false;
 };
 
 module.exports = (channel) => {
@@ -26,12 +28,12 @@ module.exports = (channel) => {
   feeder.on('new-item', async function(item) {
     logger.info(`Incoming item in RSS feed: ${item.title}`);
     const articleDescription = item.description;
-    let starWarsArticleLink = '';
+    let articleLink = '';
     let isSavedArticle = false;
 
-    if (isStarWarsDestinyArticle(articleDescription)) {
-      starWarsArticleLink = item.link;
-      logger.info(`New Star Wars article found in RSS feed: ${item.title} - ${item.link}`);
+    if (isRelevantArticle(articleDescription)) {
+      articleLink = item.link;
+      logger.info(`New article found in RSS feed: ${item.title} - ${item.link}`);
       try {
         const results = await readArticles({
           guid: `${item.guid}`
@@ -44,10 +46,10 @@ module.exports = (channel) => {
       }
     }
 
-    if (!isSavedArticle && starWarsArticleLink) {
+    if (!isSavedArticle && articleLink) {
       const currentTime = new Date().toISOString();
 
-      channel.send(`${starWarsArticleLink}`);
+      channel.send(`${articleLink}`);
 
       const article = new Article({
         title: item.title,
