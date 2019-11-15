@@ -5,7 +5,7 @@ const { Article } = require('../database/model');
 const { readArticles } = require('../database/action');
 const { logger } = require('../helper/logger');
 
-const searchTerms = ['star wars: destiny', 'star wars destiny'];
+const searchTerms = ['star wars: destiny', 'star wars destiny', 'marvel champions'];
 
 const isRelevantArticle = (description) => {
   const lowerCaseDescription = description.toLowerCase();
