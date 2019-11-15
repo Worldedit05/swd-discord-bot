@@ -1,9 +1,9 @@
 const { transliterate } = require('transliteration');
 const requireDir = require('require-dir');
-const { AW, EaW, LEG, RIV, SoR, TPG, WotF, AtG, CONV, AoN, SoH } = requireDir('../../../../../node_modules/swdestinydb-json-data/set');
+const { AW, EaW, LEG, RIV, SoR, TPG, WotF, AtG, CONV, AoN, SoH, CM } = requireDir('../../../../../node_modules/swdestinydb-json-data/set');
 
 function getCard(cardArg) {
-  var allDestinyCardsArray = AW.concat(EaW, LEG, RIV, SoR, TPG, WotF, AtG, CONV, AoN, SoH);
+  var allDestinyCardsArray = AW.concat(EaW, LEG, RIV, SoR, TPG, WotF, AtG, CONV, AoN, SoH, CM);
   let result;
 
   return allDestinyCardsArray.filter(function (card) {
