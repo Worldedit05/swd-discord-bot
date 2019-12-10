@@ -9,6 +9,7 @@
     { "name": "Way of the Force", "code": "wotf" },
     { "name": "Across the Galaxy", "code": "atg" },
     { "name": "Convergence", "code": "conv" },
-    { "name": "Spark of Hope", "code": "soh" }
+    { "name": "Spark of Hope", "code": "soh" },
+    { "name": "Covert Missions", "code": "cm"}
   ]
 }
