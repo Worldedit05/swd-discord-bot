@@ -1,4 +1,5 @@
-const common = require('../../../common/common.data.json');
+const sets = require('swdestinydb-json-data/sets');
+
 const helpMessage = `\`\`\`yaml
 -!help
 
@@ -16,9 +17,9 @@ const helpMessage = `\`\`\`yaml
       !get Luke Skywalker --set=wotf
 
     Notes:
-      valid flags - ${common.published_sets.map((set => set.code.toLowerCase())).join(' | ')}
+      valid flags - ${sets.map((set => set.code.toLowerCase())).join(' | ')}
 
-${common.published_sets.map(set => `\t\t\t${set.code} = ${set.name}\n`).join('')}
+${sets.map(set => `\t\t\t${set.code.toLowerCase()} = ${set.name}\n`).join('')}
 \`\`\``;
 
 const helpCommand = (message) => {
